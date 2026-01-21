@@ -1,0 +1,24 @@
+{
+  "name": "rc_round_1_backend",
+  "version": "1.0.0",
+  "description": "RC Round 1",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theinfinity1410/RC_Round_1_Backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theinfinity1410/RC_Round_1_Backend/issues"
+  },
+  "homepage": "https://github.com/theinfinity1410/RC_Round_1_Backend#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
