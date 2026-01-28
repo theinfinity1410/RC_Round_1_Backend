@@ -2,7 +2,7 @@ import { PrismaClient } from "../generated/prisma";
 const prisma = new PrismaClient();
 
 export async function useFreezeLifeline(req, res) {
-  const userId = req.user.id; // or req.body.userId
+  const userId = req.user.id;
 
   const progress = await prisma.progress.findUnique({
     where: { userId }
@@ -10,19 +10,22 @@ export async function useFreezeLifeline(req, res) {
 
   const lifelines = progress.lifelines as any;
 
-  if (lifelines.freeze?.used) {
+  // ❌ Already used
+  if (lifelines.freeze === true) {
     return res.status(400).json({ message: "Freeze already used" });
   }
 
-  lifelines.freeze = {
-    used: true,
-    endsAt: new Date(Date.now() + 60 * 1000)
-  };
+  // ✅ Mark freeze as used
+  lifelines.freeze = true;
 
+  // ✅ Add +60 sec to TOTAL test time
   await prisma.progress.update({
     where: { userId },
-    data: { lifelines }
+    data: {
+      totalDuration: progress.totalDuration + 60,
+      lifelines
+    }
   });
 
-  res.json({ message: "Freeze activated for 60 seconds" });
+  res.json({ message: "Freeze applied: +60 seconds added" });
 }
