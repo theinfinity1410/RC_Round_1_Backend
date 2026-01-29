@@ -1,17 +1,11 @@
-const express = require('express');
-const login = require('../controllers/auth.controller');
-const authMiddleware = require('../middlewares/authMiddleware');
+
+import express from 'express';
+
+import login from '../controllers/auth.controller.js';
+// import login from '../src/controllers/auth.controller.js';
 
 const router = express.Router();
 
 router.post('/login', login);
 
-router.get('/profile', authMiddleware, (req, res) => {
-  res.json({
-    message: 'This is a protected route',
-    userId: req.user.id
-  });
-});
-
-module.exports = router;
-
+export default router;
