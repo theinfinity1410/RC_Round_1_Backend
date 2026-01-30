@@ -19,6 +19,9 @@
   },
   "homepage": "https://github.com/theinfinity1410/RC_Round_1_Backend#readme",
   "dependencies": {
-    "express": "^5.2.1"
+    "@prisma/client": "^6.19.2",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "prisma": "^6.19.2"
   }
 }
