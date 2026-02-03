@@ -11,3 +11,7 @@ const router = express.Router();
 router.post("/flip", authMiddleware, flipQuestion);
 
 export default router;
+//hint lifeline below
+import { hintLifeline } from "../controllers/auth.js";
+
+router.post("/hint", authMiddleware, hintLifeline);

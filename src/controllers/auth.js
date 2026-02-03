@@ -78,3 +78,59 @@ export const flipQuestion = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+//hint lifeline below
+export const hintLifeline = async (req, res) => {
+  try {
+    const userId = req.user.userid;
+
+    // 1️⃣ Fetch progress + current question
+    const progress = await prisma.progress.findUnique({
+      where: { userId },
+      include: {
+        question: true
+      }
+    });
+
+    if (!progress) {
+      return res.status(404).json({ message: "Quiz not started" });
+    }
+
+    if (progress.isCompleted) {
+      return res.status(400).json({ message: "Quiz already completed" });
+    }
+
+    // 2️⃣ Check if hint already used
+    const lifelines = progress.lifelines;
+
+    if (lifelines.hint === true) {
+      return res.status(400).json({ message: "Hint lifeline already used" });
+    }
+
+    // 3️⃣ Check if question has hint
+    if (!progress.question || !progress.question.hint) {
+      return res.status(404).json({ message: "No hint available for this question" });
+    }
+
+    // 4️⃣ Update lifeline usage
+    await prisma.progress.update({
+      where: { userId },
+      data: {
+        lifelines: {
+          ...lifelines,
+          hint: true
+        }
+      }
+    });
+
+    // 5️⃣ Return hint
+    return res.status(200).json({
+      message: "Hint lifeline used successfully",
+      hint: progress.question.hint
+    });
+
+  } catch (error) {
+    console.error("Hint lifeline error:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
