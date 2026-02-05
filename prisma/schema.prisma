@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  userId        String   @id @default(uuid())
+  username      String   @unique @db.VarChar(100)
+  email         String   @unique
+  password      String   @db.VarChar(255)
+  name          String   @db.VarChar(150)
+  isJunior      Boolean  @default(false)
+  finalResult   Int      @default(0)
+  quizStartTime DateTime?
+  quizEndTime   DateTime?
+  progress      Progress?
+
+  @@map("Users")
+}
+
+model Question {
+  id            String    @id @default(uuid())
+  category      Boolean   @default(false)
+  questionText  String    @db.Text
+  answer        Int       @default(0)
+  hint          String?   @db.VarChar(255)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  progresses    Progress[]
+
+  @@map("Questions")
+}
+
+model Progress {
+  progressId        String      @id @default(uuid())
+  userId            String      @unique
+  currentQuestionId String?
+  correctQuestionIds String[]   @default([])
+  lifelines         Json     @default(dbgenerated("'{\"hint\":false,\"freeze\":false,\"flip\":false}'::json"))
+  marks             Int      @default(0)
+  isCompleted       Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user      User      @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  question  Question? @relation(fields: [currentQuestionId], references: [id])
+
+  @@map("Progress")
+}
