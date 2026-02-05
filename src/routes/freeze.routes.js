@@ -4,6 +4,6 @@ import { authMiddleware } from "../middleware/auth";
 
 const router = express.Router();
 
-router.post("/freeze", authMiddleware, useFreezeLifeline);
+router.post("/freeze", authMiddleware, freezeMiddleware, useFreezeLifeline);
 
 export default router;
