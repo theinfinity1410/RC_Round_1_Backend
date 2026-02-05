@@ -10,15 +10,12 @@ export async function useFreezeLifeline(req, res) {
 
   const lifelines = progress.lifelines as any;
 
-  // ❌ Already used
   if (lifelines.freeze === true) {
     return res.status(400).json({ message: "Freeze already used" });
   }
 
-  // ✅ Mark freeze as used
   lifelines.freeze = true;
 
-  // ✅ Add +60 sec to TOTAL test time
   await prisma.progress.update({
     where: { userId },
     data: {
