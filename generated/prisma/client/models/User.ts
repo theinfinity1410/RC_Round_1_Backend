@@ -42,8 +42,8 @@ export type UserMinAggregateOutputType = {
   name: string | null
   isJunior: boolean | null
   finalResult: number | null
-  startTime: Date | null
-  endTime: Date | null
+  quizStartTime: Date | null
+  quizEndTime: Date | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -54,8 +54,8 @@ export type UserMaxAggregateOutputType = {
   name: string | null
   isJunior: boolean | null
   finalResult: number | null
-  startTime: Date | null
-  endTime: Date | null
+  quizStartTime: Date | null
+  quizEndTime: Date | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -66,8 +66,8 @@ export type UserCountAggregateOutputType = {
   name: number
   isJunior: number
   finalResult: number
-  startTime: number
-  endTime: number
+  quizStartTime: number
+  quizEndTime: number
   _all: number
 }
 
@@ -88,8 +88,8 @@ export type UserMinAggregateInputType = {
   name?: true
   isJunior?: true
   finalResult?: true
-  startTime?: true
-  endTime?: true
+  quizStartTime?: true
+  quizEndTime?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -100,8 +100,8 @@ export type UserMaxAggregateInputType = {
   name?: true
   isJunior?: true
   finalResult?: true
-  startTime?: true
-  endTime?: true
+  quizStartTime?: true
+  quizEndTime?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -112,8 +112,8 @@ export type UserCountAggregateInputType = {
   name?: true
   isJunior?: true
   finalResult?: true
-  startTime?: true
-  endTime?: true
+  quizStartTime?: true
+  quizEndTime?: true
   _all?: true
 }
 
@@ -211,8 +211,8 @@ export type UserGroupByOutputType = {
   name: string
   isJunior: boolean
   finalResult: number
-  startTime: Date | null
-  endTime: Date | null
+  quizStartTime: Date | null
+  quizEndTime: Date | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -246,8 +246,8 @@ export type UserWhereInput = {
   name?: Prisma.StringFilter<"User"> | string
   isJunior?: Prisma.BoolFilter<"User"> | boolean
   finalResult?: Prisma.IntFilter<"User"> | number
-  startTime?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
-  endTime?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  quizStartTime?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  quizEndTime?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   progress?: Prisma.XOR<Prisma.ProgressNullableScalarRelationFilter, Prisma.ProgressWhereInput> | null
 }
 
@@ -259,8 +259,8 @@ export type UserOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   isJunior?: Prisma.SortOrder
   finalResult?: Prisma.SortOrder
-  startTime?: Prisma.SortOrderInput | Prisma.SortOrder
-  endTime?: Prisma.SortOrderInput | Prisma.SortOrder
+  quizStartTime?: Prisma.SortOrderInput | Prisma.SortOrder
+  quizEndTime?: Prisma.SortOrderInput | Prisma.SortOrder
   progress?: Prisma.ProgressOrderByWithRelationInput
 }
 
@@ -275,8 +275,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"User"> | string
   isJunior?: Prisma.BoolFilter<"User"> | boolean
   finalResult?: Prisma.IntFilter<"User"> | number
-  startTime?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
-  endTime?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  quizStartTime?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  quizEndTime?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   progress?: Prisma.XOR<Prisma.ProgressNullableScalarRelationFilter, Prisma.ProgressWhereInput> | null
 }, "userId" | "username" | "email">
 
@@ -288,8 +288,8 @@ export type UserOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   isJunior?: Prisma.SortOrder
   finalResult?: Prisma.SortOrder
-  startTime?: Prisma.SortOrderInput | Prisma.SortOrder
-  endTime?: Prisma.SortOrderInput | Prisma.SortOrder
+  quizStartTime?: Prisma.SortOrderInput | Prisma.SortOrder
+  quizEndTime?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -308,8 +308,8 @@ export type UserScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"User"> | string
   isJunior?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   finalResult?: Prisma.IntWithAggregatesFilter<"User"> | number
-  startTime?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
-  endTime?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  quizStartTime?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  quizEndTime?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
 }
 
 export type UserCreateInput = {
@@ -320,8 +320,8 @@ export type UserCreateInput = {
   name: string
   isJunior?: boolean
   finalResult?: number
-  startTime?: Date | string | null
-  endTime?: Date | string | null
+  quizStartTime?: Date | string | null
+  quizEndTime?: Date | string | null
   progress?: Prisma.ProgressCreateNestedOneWithoutUserInput
 }
 
@@ -333,8 +333,8 @@ export type UserUncheckedCreateInput = {
   name: string
   isJunior?: boolean
   finalResult?: number
-  startTime?: Date | string | null
-  endTime?: Date | string | null
+  quizStartTime?: Date | string | null
+  quizEndTime?: Date | string | null
   progress?: Prisma.ProgressUncheckedCreateNestedOneWithoutUserInput
 }
 
@@ -346,8 +346,8 @@ export type UserUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isJunior?: Prisma.BoolFieldUpdateOperationsInput | boolean
   finalResult?: Prisma.IntFieldUpdateOperationsInput | number
-  startTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  endTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quizStartTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quizEndTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progress?: Prisma.ProgressUpdateOneWithoutUserNestedInput
 }
 
@@ -359,8 +359,8 @@ export type UserUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isJunior?: Prisma.BoolFieldUpdateOperationsInput | boolean
   finalResult?: Prisma.IntFieldUpdateOperationsInput | number
-  startTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  endTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quizStartTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quizEndTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   progress?: Prisma.ProgressUncheckedUpdateOneWithoutUserNestedInput
 }
 
@@ -372,8 +372,8 @@ export type UserCreateManyInput = {
   name: string
   isJunior?: boolean
   finalResult?: number
-  startTime?: Date | string | null
-  endTime?: Date | string | null
+  quizStartTime?: Date | string | null
+  quizEndTime?: Date | string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -384,8 +384,8 @@ export type UserUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isJunior?: Prisma.BoolFieldUpdateOperationsInput | boolean
   finalResult?: Prisma.IntFieldUpdateOperationsInput | number
-  startTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  endTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quizStartTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quizEndTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -396,8 +396,8 @@ export type UserUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isJunior?: Prisma.BoolFieldUpdateOperationsInput | boolean
   finalResult?: Prisma.IntFieldUpdateOperationsInput | number
-  startTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  endTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quizStartTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quizEndTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -408,8 +408,8 @@ export type UserCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   isJunior?: Prisma.SortOrder
   finalResult?: Prisma.SortOrder
-  startTime?: Prisma.SortOrder
-  endTime?: Prisma.SortOrder
+  quizStartTime?: Prisma.SortOrder
+  quizEndTime?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -424,8 +424,8 @@ export type UserMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   isJunior?: Prisma.SortOrder
   finalResult?: Prisma.SortOrder
-  startTime?: Prisma.SortOrder
-  endTime?: Prisma.SortOrder
+  quizStartTime?: Prisma.SortOrder
+  quizEndTime?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -436,8 +436,8 @@ export type UserMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   isJunior?: Prisma.SortOrder
   finalResult?: Prisma.SortOrder
-  startTime?: Prisma.SortOrder
-  endTime?: Prisma.SortOrder
+  quizStartTime?: Prisma.SortOrder
+  quizEndTime?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -491,8 +491,8 @@ export type UserCreateWithoutProgressInput = {
   name: string
   isJunior?: boolean
   finalResult?: number
-  startTime?: Date | string | null
-  endTime?: Date | string | null
+  quizStartTime?: Date | string | null
+  quizEndTime?: Date | string | null
 }
 
 export type UserUncheckedCreateWithoutProgressInput = {
@@ -503,8 +503,8 @@ export type UserUncheckedCreateWithoutProgressInput = {
   name: string
   isJunior?: boolean
   finalResult?: number
-  startTime?: Date | string | null
-  endTime?: Date | string | null
+  quizStartTime?: Date | string | null
+  quizEndTime?: Date | string | null
 }
 
 export type UserCreateOrConnectWithoutProgressInput = {
@@ -531,8 +531,8 @@ export type UserUpdateWithoutProgressInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isJunior?: Prisma.BoolFieldUpdateOperationsInput | boolean
   finalResult?: Prisma.IntFieldUpdateOperationsInput | number
-  startTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  endTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quizStartTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quizEndTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserUncheckedUpdateWithoutProgressInput = {
@@ -543,8 +543,8 @@ export type UserUncheckedUpdateWithoutProgressInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isJunior?: Prisma.BoolFieldUpdateOperationsInput | boolean
   finalResult?: Prisma.IntFieldUpdateOperationsInput | number
-  startTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  endTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quizStartTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quizEndTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -557,8 +557,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   name?: boolean
   isJunior?: boolean
   finalResult?: boolean
-  startTime?: boolean
-  endTime?: boolean
+  quizStartTime?: boolean
+  quizEndTime?: boolean
   progress?: boolean | Prisma.User$progressArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -570,8 +570,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   isJunior?: boolean
   finalResult?: boolean
-  startTime?: boolean
-  endTime?: boolean
+  quizStartTime?: boolean
+  quizEndTime?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -582,8 +582,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   isJunior?: boolean
   finalResult?: boolean
-  startTime?: boolean
-  endTime?: boolean
+  quizStartTime?: boolean
+  quizEndTime?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -594,11 +594,11 @@ export type UserSelectScalar = {
   name?: boolean
   isJunior?: boolean
   finalResult?: boolean
-  startTime?: boolean
-  endTime?: boolean
+  quizStartTime?: boolean
+  quizEndTime?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "username" | "email" | "password" | "name" | "isJunior" | "finalResult" | "startTime" | "endTime", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "username" | "email" | "password" | "name" | "isJunior" | "finalResult" | "quizStartTime" | "quizEndTime", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   progress?: boolean | Prisma.User$progressArgs<ExtArgs>
 }
@@ -618,8 +618,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     name: string
     isJunior: boolean
     finalResult: number
-    startTime: Date | null
-    endTime: Date | null
+    quizStartTime: Date | null
+    quizEndTime: Date | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1051,8 +1051,8 @@ export interface UserFieldRefs {
   readonly name: Prisma.FieldRef<"User", 'String'>
   readonly isJunior: Prisma.FieldRef<"User", 'Boolean'>
   readonly finalResult: Prisma.FieldRef<"User", 'Int'>
-  readonly startTime: Prisma.FieldRef<"User", 'DateTime'>
-  readonly endTime: Prisma.FieldRef<"User", 'DateTime'>
+  readonly quizStartTime: Prisma.FieldRef<"User", 'DateTime'>
+  readonly quizEndTime: Prisma.FieldRef<"User", 'DateTime'>
 }
     
 

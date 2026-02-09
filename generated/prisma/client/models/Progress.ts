@@ -27,26 +27,19 @@ export type AggregateProgress = {
 }
 
 export type ProgressAvgAggregateOutputType = {
-  currentQuestionIdx: number | null
-  correctCount: number | null
-  attemptedCount: number | null
   marks: number | null
 }
 
 export type ProgressSumAggregateOutputType = {
-  currentQuestionIdx: number | null
-  correctCount: number | null
-  attemptedCount: number | null
   marks: number | null
 }
 
 export type ProgressMinAggregateOutputType = {
   progressId: string | null
   userId: string | null
-  currentQuestionIdx: number | null
-  correctCount: number | null
-  attemptedCount: number | null
+  currentQuestionId: string | null
   marks: number | null
+  isCompleted: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -54,10 +47,9 @@ export type ProgressMinAggregateOutputType = {
 export type ProgressMaxAggregateOutputType = {
   progressId: string | null
   userId: string | null
-  currentQuestionIdx: number | null
-  correctCount: number | null
-  attemptedCount: number | null
+  currentQuestionId: string | null
   marks: number | null
+  isCompleted: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -65,12 +57,11 @@ export type ProgressMaxAggregateOutputType = {
 export type ProgressCountAggregateOutputType = {
   progressId: number
   userId: number
-  currentQuestionIdx: number
-  questionIds: number
-  correctCount: number
-  attemptedCount: number
+  currentQuestionId: number
+  correctQuestionIds: number
   lifelines: number
   marks: number
+  isCompleted: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -78,26 +69,19 @@ export type ProgressCountAggregateOutputType = {
 
 
 export type ProgressAvgAggregateInputType = {
-  currentQuestionIdx?: true
-  correctCount?: true
-  attemptedCount?: true
   marks?: true
 }
 
 export type ProgressSumAggregateInputType = {
-  currentQuestionIdx?: true
-  correctCount?: true
-  attemptedCount?: true
   marks?: true
 }
 
 export type ProgressMinAggregateInputType = {
   progressId?: true
   userId?: true
-  currentQuestionIdx?: true
-  correctCount?: true
-  attemptedCount?: true
+  currentQuestionId?: true
   marks?: true
+  isCompleted?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -105,10 +89,9 @@ export type ProgressMinAggregateInputType = {
 export type ProgressMaxAggregateInputType = {
   progressId?: true
   userId?: true
-  currentQuestionIdx?: true
-  correctCount?: true
-  attemptedCount?: true
+  currentQuestionId?: true
   marks?: true
+  isCompleted?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -116,12 +99,11 @@ export type ProgressMaxAggregateInputType = {
 export type ProgressCountAggregateInputType = {
   progressId?: true
   userId?: true
-  currentQuestionIdx?: true
-  questionIds?: true
-  correctCount?: true
-  attemptedCount?: true
+  currentQuestionId?: true
+  correctQuestionIds?: true
   lifelines?: true
   marks?: true
+  isCompleted?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -216,12 +198,11 @@ export type ProgressGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 export type ProgressGroupByOutputType = {
   progressId: string
   userId: string
-  currentQuestionIdx: number
-  questionIds: string[]
-  correctCount: number
-  attemptedCount: number
+  currentQuestionId: string | null
+  correctQuestionIds: string[]
   lifelines: runtime.JsonValue
   marks: number
+  isCompleted: boolean
   createdAt: Date
   updatedAt: Date
   _count: ProgressCountAggregateOutputType | null
@@ -252,29 +233,29 @@ export type ProgressWhereInput = {
   NOT?: Prisma.ProgressWhereInput | Prisma.ProgressWhereInput[]
   progressId?: Prisma.StringFilter<"Progress"> | string
   userId?: Prisma.StringFilter<"Progress"> | string
-  currentQuestionIdx?: Prisma.IntFilter<"Progress"> | number
-  questionIds?: Prisma.StringNullableListFilter<"Progress">
-  correctCount?: Prisma.IntFilter<"Progress"> | number
-  attemptedCount?: Prisma.IntFilter<"Progress"> | number
+  currentQuestionId?: Prisma.StringNullableFilter<"Progress"> | string | null
+  correctQuestionIds?: Prisma.StringNullableListFilter<"Progress">
   lifelines?: Prisma.JsonFilter<"Progress">
   marks?: Prisma.IntFilter<"Progress"> | number
+  isCompleted?: Prisma.BoolFilter<"Progress"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Progress"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Progress"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  question?: Prisma.XOR<Prisma.QuestionNullableScalarRelationFilter, Prisma.QuestionWhereInput> | null
 }
 
 export type ProgressOrderByWithRelationInput = {
   progressId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  currentQuestionIdx?: Prisma.SortOrder
-  questionIds?: Prisma.SortOrder
-  correctCount?: Prisma.SortOrder
-  attemptedCount?: Prisma.SortOrder
+  currentQuestionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  correctQuestionIds?: Prisma.SortOrder
   lifelines?: Prisma.SortOrder
   marks?: Prisma.SortOrder
+  isCompleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  question?: Prisma.QuestionOrderByWithRelationInput
 }
 
 export type ProgressWhereUniqueInput = Prisma.AtLeast<{
@@ -283,26 +264,25 @@ export type ProgressWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ProgressWhereInput | Prisma.ProgressWhereInput[]
   OR?: Prisma.ProgressWhereInput[]
   NOT?: Prisma.ProgressWhereInput | Prisma.ProgressWhereInput[]
-  currentQuestionIdx?: Prisma.IntFilter<"Progress"> | number
-  questionIds?: Prisma.StringNullableListFilter<"Progress">
-  correctCount?: Prisma.IntFilter<"Progress"> | number
-  attemptedCount?: Prisma.IntFilter<"Progress"> | number
+  currentQuestionId?: Prisma.StringNullableFilter<"Progress"> | string | null
+  correctQuestionIds?: Prisma.StringNullableListFilter<"Progress">
   lifelines?: Prisma.JsonFilter<"Progress">
   marks?: Prisma.IntFilter<"Progress"> | number
+  isCompleted?: Prisma.BoolFilter<"Progress"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Progress"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Progress"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  question?: Prisma.XOR<Prisma.QuestionNullableScalarRelationFilter, Prisma.QuestionWhereInput> | null
 }, "progressId" | "userId">
 
 export type ProgressOrderByWithAggregationInput = {
   progressId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  currentQuestionIdx?: Prisma.SortOrder
-  questionIds?: Prisma.SortOrder
-  correctCount?: Prisma.SortOrder
-  attemptedCount?: Prisma.SortOrder
+  currentQuestionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  correctQuestionIds?: Prisma.SortOrder
   lifelines?: Prisma.SortOrder
   marks?: Prisma.SortOrder
+  isCompleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ProgressCountOrderByAggregateInput
@@ -318,64 +298,59 @@ export type ProgressScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ProgressScalarWhereWithAggregatesInput | Prisma.ProgressScalarWhereWithAggregatesInput[]
   progressId?: Prisma.StringWithAggregatesFilter<"Progress"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Progress"> | string
-  currentQuestionIdx?: Prisma.IntWithAggregatesFilter<"Progress"> | number
-  questionIds?: Prisma.StringNullableListFilter<"Progress">
-  correctCount?: Prisma.IntWithAggregatesFilter<"Progress"> | number
-  attemptedCount?: Prisma.IntWithAggregatesFilter<"Progress"> | number
+  currentQuestionId?: Prisma.StringNullableWithAggregatesFilter<"Progress"> | string | null
+  correctQuestionIds?: Prisma.StringNullableListFilter<"Progress">
   lifelines?: Prisma.JsonWithAggregatesFilter<"Progress">
   marks?: Prisma.IntWithAggregatesFilter<"Progress"> | number
+  isCompleted?: Prisma.BoolWithAggregatesFilter<"Progress"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Progress"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Progress"> | Date | string
 }
 
 export type ProgressCreateInput = {
   progressId?: string
-  currentQuestionIdx?: number
-  questionIds?: Prisma.ProgressCreatequestionIdsInput | string[]
-  correctCount?: number
-  attemptedCount?: number
+  correctQuestionIds?: Prisma.ProgressCreatecorrectQuestionIdsInput | string[]
   lifelines?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   marks?: number
+  isCompleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutProgressInput
+  question?: Prisma.QuestionCreateNestedOneWithoutProgressesInput
 }
 
 export type ProgressUncheckedCreateInput = {
   progressId?: string
   userId: string
-  currentQuestionIdx?: number
-  questionIds?: Prisma.ProgressCreatequestionIdsInput | string[]
-  correctCount?: number
-  attemptedCount?: number
+  currentQuestionId?: string | null
+  correctQuestionIds?: Prisma.ProgressCreatecorrectQuestionIdsInput | string[]
   lifelines?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   marks?: number
+  isCompleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type ProgressUpdateInput = {
   progressId?: Prisma.StringFieldUpdateOperationsInput | string
-  currentQuestionIdx?: Prisma.IntFieldUpdateOperationsInput | number
-  questionIds?: Prisma.ProgressUpdatequestionIdsInput | string[]
-  correctCount?: Prisma.IntFieldUpdateOperationsInput | number
-  attemptedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  correctQuestionIds?: Prisma.ProgressUpdatecorrectQuestionIdsInput | string[]
   lifelines?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   marks?: Prisma.IntFieldUpdateOperationsInput | number
+  isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutProgressNestedInput
+  question?: Prisma.QuestionUpdateOneWithoutProgressesNestedInput
 }
 
 export type ProgressUncheckedUpdateInput = {
   progressId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  currentQuestionIdx?: Prisma.IntFieldUpdateOperationsInput | number
-  questionIds?: Prisma.ProgressUpdatequestionIdsInput | string[]
-  correctCount?: Prisma.IntFieldUpdateOperationsInput | number
-  attemptedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  currentQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  correctQuestionIds?: Prisma.ProgressUpdatecorrectQuestionIdsInput | string[]
   lifelines?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   marks?: Prisma.IntFieldUpdateOperationsInput | number
+  isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -383,24 +358,21 @@ export type ProgressUncheckedUpdateInput = {
 export type ProgressCreateManyInput = {
   progressId?: string
   userId: string
-  currentQuestionIdx?: number
-  questionIds?: Prisma.ProgressCreatequestionIdsInput | string[]
-  correctCount?: number
-  attemptedCount?: number
+  currentQuestionId?: string | null
+  correctQuestionIds?: Prisma.ProgressCreatecorrectQuestionIdsInput | string[]
   lifelines?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   marks?: number
+  isCompleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type ProgressUpdateManyMutationInput = {
   progressId?: Prisma.StringFieldUpdateOperationsInput | string
-  currentQuestionIdx?: Prisma.IntFieldUpdateOperationsInput | number
-  questionIds?: Prisma.ProgressUpdatequestionIdsInput | string[]
-  correctCount?: Prisma.IntFieldUpdateOperationsInput | number
-  attemptedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  correctQuestionIds?: Prisma.ProgressUpdatecorrectQuestionIdsInput | string[]
   lifelines?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   marks?: Prisma.IntFieldUpdateOperationsInput | number
+  isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -408,12 +380,11 @@ export type ProgressUpdateManyMutationInput = {
 export type ProgressUncheckedUpdateManyInput = {
   progressId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  currentQuestionIdx?: Prisma.IntFieldUpdateOperationsInput | number
-  questionIds?: Prisma.ProgressUpdatequestionIdsInput | string[]
-  correctCount?: Prisma.IntFieldUpdateOperationsInput | number
-  attemptedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  currentQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  correctQuestionIds?: Prisma.ProgressUpdatecorrectQuestionIdsInput | string[]
   lifelines?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   marks?: Prisma.IntFieldUpdateOperationsInput | number
+  isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -421,6 +392,16 @@ export type ProgressUncheckedUpdateManyInput = {
 export type ProgressNullableScalarRelationFilter = {
   is?: Prisma.ProgressWhereInput | null
   isNot?: Prisma.ProgressWhereInput | null
+}
+
+export type ProgressListRelationFilter = {
+  every?: Prisma.ProgressWhereInput
+  some?: Prisma.ProgressWhereInput
+  none?: Prisma.ProgressWhereInput
+}
+
+export type ProgressOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type StringNullableListFilter<$PrismaModel = never> = {
@@ -434,30 +415,25 @@ export type StringNullableListFilter<$PrismaModel = never> = {
 export type ProgressCountOrderByAggregateInput = {
   progressId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  currentQuestionIdx?: Prisma.SortOrder
-  questionIds?: Prisma.SortOrder
-  correctCount?: Prisma.SortOrder
-  attemptedCount?: Prisma.SortOrder
+  currentQuestionId?: Prisma.SortOrder
+  correctQuestionIds?: Prisma.SortOrder
   lifelines?: Prisma.SortOrder
   marks?: Prisma.SortOrder
+  isCompleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type ProgressAvgOrderByAggregateInput = {
-  currentQuestionIdx?: Prisma.SortOrder
-  correctCount?: Prisma.SortOrder
-  attemptedCount?: Prisma.SortOrder
   marks?: Prisma.SortOrder
 }
 
 export type ProgressMaxOrderByAggregateInput = {
   progressId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  currentQuestionIdx?: Prisma.SortOrder
-  correctCount?: Prisma.SortOrder
-  attemptedCount?: Prisma.SortOrder
+  currentQuestionId?: Prisma.SortOrder
   marks?: Prisma.SortOrder
+  isCompleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -465,18 +441,14 @@ export type ProgressMaxOrderByAggregateInput = {
 export type ProgressMinOrderByAggregateInput = {
   progressId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  currentQuestionIdx?: Prisma.SortOrder
-  correctCount?: Prisma.SortOrder
-  attemptedCount?: Prisma.SortOrder
+  currentQuestionId?: Prisma.SortOrder
   marks?: Prisma.SortOrder
+  isCompleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type ProgressSumOrderByAggregateInput = {
-  currentQuestionIdx?: Prisma.SortOrder
-  correctCount?: Prisma.SortOrder
-  attemptedCount?: Prisma.SortOrder
   marks?: Prisma.SortOrder
 }
 
@@ -512,35 +484,75 @@ export type ProgressUncheckedUpdateOneWithoutUserNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProgressUpdateToOneWithWhereWithoutUserInput, Prisma.ProgressUpdateWithoutUserInput>, Prisma.ProgressUncheckedUpdateWithoutUserInput>
 }
 
-export type ProgressCreatequestionIdsInput = {
+export type ProgressCreateNestedManyWithoutQuestionInput = {
+  create?: Prisma.XOR<Prisma.ProgressCreateWithoutQuestionInput, Prisma.ProgressUncheckedCreateWithoutQuestionInput> | Prisma.ProgressCreateWithoutQuestionInput[] | Prisma.ProgressUncheckedCreateWithoutQuestionInput[]
+  connectOrCreate?: Prisma.ProgressCreateOrConnectWithoutQuestionInput | Prisma.ProgressCreateOrConnectWithoutQuestionInput[]
+  createMany?: Prisma.ProgressCreateManyQuestionInputEnvelope
+  connect?: Prisma.ProgressWhereUniqueInput | Prisma.ProgressWhereUniqueInput[]
+}
+
+export type ProgressUncheckedCreateNestedManyWithoutQuestionInput = {
+  create?: Prisma.XOR<Prisma.ProgressCreateWithoutQuestionInput, Prisma.ProgressUncheckedCreateWithoutQuestionInput> | Prisma.ProgressCreateWithoutQuestionInput[] | Prisma.ProgressUncheckedCreateWithoutQuestionInput[]
+  connectOrCreate?: Prisma.ProgressCreateOrConnectWithoutQuestionInput | Prisma.ProgressCreateOrConnectWithoutQuestionInput[]
+  createMany?: Prisma.ProgressCreateManyQuestionInputEnvelope
+  connect?: Prisma.ProgressWhereUniqueInput | Prisma.ProgressWhereUniqueInput[]
+}
+
+export type ProgressUpdateManyWithoutQuestionNestedInput = {
+  create?: Prisma.XOR<Prisma.ProgressCreateWithoutQuestionInput, Prisma.ProgressUncheckedCreateWithoutQuestionInput> | Prisma.ProgressCreateWithoutQuestionInput[] | Prisma.ProgressUncheckedCreateWithoutQuestionInput[]
+  connectOrCreate?: Prisma.ProgressCreateOrConnectWithoutQuestionInput | Prisma.ProgressCreateOrConnectWithoutQuestionInput[]
+  upsert?: Prisma.ProgressUpsertWithWhereUniqueWithoutQuestionInput | Prisma.ProgressUpsertWithWhereUniqueWithoutQuestionInput[]
+  createMany?: Prisma.ProgressCreateManyQuestionInputEnvelope
+  set?: Prisma.ProgressWhereUniqueInput | Prisma.ProgressWhereUniqueInput[]
+  disconnect?: Prisma.ProgressWhereUniqueInput | Prisma.ProgressWhereUniqueInput[]
+  delete?: Prisma.ProgressWhereUniqueInput | Prisma.ProgressWhereUniqueInput[]
+  connect?: Prisma.ProgressWhereUniqueInput | Prisma.ProgressWhereUniqueInput[]
+  update?: Prisma.ProgressUpdateWithWhereUniqueWithoutQuestionInput | Prisma.ProgressUpdateWithWhereUniqueWithoutQuestionInput[]
+  updateMany?: Prisma.ProgressUpdateManyWithWhereWithoutQuestionInput | Prisma.ProgressUpdateManyWithWhereWithoutQuestionInput[]
+  deleteMany?: Prisma.ProgressScalarWhereInput | Prisma.ProgressScalarWhereInput[]
+}
+
+export type ProgressUncheckedUpdateManyWithoutQuestionNestedInput = {
+  create?: Prisma.XOR<Prisma.ProgressCreateWithoutQuestionInput, Prisma.ProgressUncheckedCreateWithoutQuestionInput> | Prisma.ProgressCreateWithoutQuestionInput[] | Prisma.ProgressUncheckedCreateWithoutQuestionInput[]
+  connectOrCreate?: Prisma.ProgressCreateOrConnectWithoutQuestionInput | Prisma.ProgressCreateOrConnectWithoutQuestionInput[]
+  upsert?: Prisma.ProgressUpsertWithWhereUniqueWithoutQuestionInput | Prisma.ProgressUpsertWithWhereUniqueWithoutQuestionInput[]
+  createMany?: Prisma.ProgressCreateManyQuestionInputEnvelope
+  set?: Prisma.ProgressWhereUniqueInput | Prisma.ProgressWhereUniqueInput[]
+  disconnect?: Prisma.ProgressWhereUniqueInput | Prisma.ProgressWhereUniqueInput[]
+  delete?: Prisma.ProgressWhereUniqueInput | Prisma.ProgressWhereUniqueInput[]
+  connect?: Prisma.ProgressWhereUniqueInput | Prisma.ProgressWhereUniqueInput[]
+  update?: Prisma.ProgressUpdateWithWhereUniqueWithoutQuestionInput | Prisma.ProgressUpdateWithWhereUniqueWithoutQuestionInput[]
+  updateMany?: Prisma.ProgressUpdateManyWithWhereWithoutQuestionInput | Prisma.ProgressUpdateManyWithWhereWithoutQuestionInput[]
+  deleteMany?: Prisma.ProgressScalarWhereInput | Prisma.ProgressScalarWhereInput[]
+}
+
+export type ProgressCreatecorrectQuestionIdsInput = {
   set: string[]
 }
 
-export type ProgressUpdatequestionIdsInput = {
+export type ProgressUpdatecorrectQuestionIdsInput = {
   set?: string[]
   push?: string | string[]
 }
 
 export type ProgressCreateWithoutUserInput = {
   progressId?: string
-  currentQuestionIdx?: number
-  questionIds?: Prisma.ProgressCreatequestionIdsInput | string[]
-  correctCount?: number
-  attemptedCount?: number
+  correctQuestionIds?: Prisma.ProgressCreatecorrectQuestionIdsInput | string[]
   lifelines?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   marks?: number
+  isCompleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  question?: Prisma.QuestionCreateNestedOneWithoutProgressesInput
 }
 
 export type ProgressUncheckedCreateWithoutUserInput = {
   progressId?: string
-  currentQuestionIdx?: number
-  questionIds?: Prisma.ProgressCreatequestionIdsInput | string[]
-  correctCount?: number
-  attemptedCount?: number
+  currentQuestionId?: string | null
+  correctQuestionIds?: Prisma.ProgressCreatecorrectQuestionIdsInput | string[]
   lifelines?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   marks?: number
+  isCompleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -563,24 +575,129 @@ export type ProgressUpdateToOneWithWhereWithoutUserInput = {
 
 export type ProgressUpdateWithoutUserInput = {
   progressId?: Prisma.StringFieldUpdateOperationsInput | string
-  currentQuestionIdx?: Prisma.IntFieldUpdateOperationsInput | number
-  questionIds?: Prisma.ProgressUpdatequestionIdsInput | string[]
-  correctCount?: Prisma.IntFieldUpdateOperationsInput | number
-  attemptedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  correctQuestionIds?: Prisma.ProgressUpdatecorrectQuestionIdsInput | string[]
   lifelines?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   marks?: Prisma.IntFieldUpdateOperationsInput | number
+  isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  question?: Prisma.QuestionUpdateOneWithoutProgressesNestedInput
 }
 
 export type ProgressUncheckedUpdateWithoutUserInput = {
   progressId?: Prisma.StringFieldUpdateOperationsInput | string
-  currentQuestionIdx?: Prisma.IntFieldUpdateOperationsInput | number
-  questionIds?: Prisma.ProgressUpdatequestionIdsInput | string[]
-  correctCount?: Prisma.IntFieldUpdateOperationsInput | number
-  attemptedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  currentQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  correctQuestionIds?: Prisma.ProgressUpdatecorrectQuestionIdsInput | string[]
   lifelines?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   marks?: Prisma.IntFieldUpdateOperationsInput | number
+  isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ProgressCreateWithoutQuestionInput = {
+  progressId?: string
+  correctQuestionIds?: Prisma.ProgressCreatecorrectQuestionIdsInput | string[]
+  lifelines?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  marks?: number
+  isCompleted?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutProgressInput
+}
+
+export type ProgressUncheckedCreateWithoutQuestionInput = {
+  progressId?: string
+  userId: string
+  correctQuestionIds?: Prisma.ProgressCreatecorrectQuestionIdsInput | string[]
+  lifelines?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  marks?: number
+  isCompleted?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ProgressCreateOrConnectWithoutQuestionInput = {
+  where: Prisma.ProgressWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProgressCreateWithoutQuestionInput, Prisma.ProgressUncheckedCreateWithoutQuestionInput>
+}
+
+export type ProgressCreateManyQuestionInputEnvelope = {
+  data: Prisma.ProgressCreateManyQuestionInput | Prisma.ProgressCreateManyQuestionInput[]
+  skipDuplicates?: boolean
+}
+
+export type ProgressUpsertWithWhereUniqueWithoutQuestionInput = {
+  where: Prisma.ProgressWhereUniqueInput
+  update: Prisma.XOR<Prisma.ProgressUpdateWithoutQuestionInput, Prisma.ProgressUncheckedUpdateWithoutQuestionInput>
+  create: Prisma.XOR<Prisma.ProgressCreateWithoutQuestionInput, Prisma.ProgressUncheckedCreateWithoutQuestionInput>
+}
+
+export type ProgressUpdateWithWhereUniqueWithoutQuestionInput = {
+  where: Prisma.ProgressWhereUniqueInput
+  data: Prisma.XOR<Prisma.ProgressUpdateWithoutQuestionInput, Prisma.ProgressUncheckedUpdateWithoutQuestionInput>
+}
+
+export type ProgressUpdateManyWithWhereWithoutQuestionInput = {
+  where: Prisma.ProgressScalarWhereInput
+  data: Prisma.XOR<Prisma.ProgressUpdateManyMutationInput, Prisma.ProgressUncheckedUpdateManyWithoutQuestionInput>
+}
+
+export type ProgressScalarWhereInput = {
+  AND?: Prisma.ProgressScalarWhereInput | Prisma.ProgressScalarWhereInput[]
+  OR?: Prisma.ProgressScalarWhereInput[]
+  NOT?: Prisma.ProgressScalarWhereInput | Prisma.ProgressScalarWhereInput[]
+  progressId?: Prisma.StringFilter<"Progress"> | string
+  userId?: Prisma.StringFilter<"Progress"> | string
+  currentQuestionId?: Prisma.StringNullableFilter<"Progress"> | string | null
+  correctQuestionIds?: Prisma.StringNullableListFilter<"Progress">
+  lifelines?: Prisma.JsonFilter<"Progress">
+  marks?: Prisma.IntFilter<"Progress"> | number
+  isCompleted?: Prisma.BoolFilter<"Progress"> | boolean
+  createdAt?: Prisma.DateTimeFilter<"Progress"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Progress"> | Date | string
+}
+
+export type ProgressCreateManyQuestionInput = {
+  progressId?: string
+  userId: string
+  correctQuestionIds?: Prisma.ProgressCreatecorrectQuestionIdsInput | string[]
+  lifelines?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  marks?: number
+  isCompleted?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ProgressUpdateWithoutQuestionInput = {
+  progressId?: Prisma.StringFieldUpdateOperationsInput | string
+  correctQuestionIds?: Prisma.ProgressUpdatecorrectQuestionIdsInput | string[]
+  lifelines?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  marks?: Prisma.IntFieldUpdateOperationsInput | number
+  isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutProgressNestedInput
+}
+
+export type ProgressUncheckedUpdateWithoutQuestionInput = {
+  progressId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  correctQuestionIds?: Prisma.ProgressUpdatecorrectQuestionIdsInput | string[]
+  lifelines?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  marks?: Prisma.IntFieldUpdateOperationsInput | number
+  isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ProgressUncheckedUpdateManyWithoutQuestionInput = {
+  progressId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  correctQuestionIds?: Prisma.ProgressUpdatecorrectQuestionIdsInput | string[]
+  lifelines?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  marks?: Prisma.IntFieldUpdateOperationsInput | number
+  isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -590,83 +707,85 @@ export type ProgressUncheckedUpdateWithoutUserInput = {
 export type ProgressSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   progressId?: boolean
   userId?: boolean
-  currentQuestionIdx?: boolean
-  questionIds?: boolean
-  correctCount?: boolean
-  attemptedCount?: boolean
+  currentQuestionId?: boolean
+  correctQuestionIds?: boolean
   lifelines?: boolean
   marks?: boolean
+  isCompleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  question?: boolean | Prisma.Progress$questionArgs<ExtArgs>
 }, ExtArgs["result"]["progress"]>
 
 export type ProgressSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   progressId?: boolean
   userId?: boolean
-  currentQuestionIdx?: boolean
-  questionIds?: boolean
-  correctCount?: boolean
-  attemptedCount?: boolean
+  currentQuestionId?: boolean
+  correctQuestionIds?: boolean
   lifelines?: boolean
   marks?: boolean
+  isCompleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  question?: boolean | Prisma.Progress$questionArgs<ExtArgs>
 }, ExtArgs["result"]["progress"]>
 
 export type ProgressSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   progressId?: boolean
   userId?: boolean
-  currentQuestionIdx?: boolean
-  questionIds?: boolean
-  correctCount?: boolean
-  attemptedCount?: boolean
+  currentQuestionId?: boolean
+  correctQuestionIds?: boolean
   lifelines?: boolean
   marks?: boolean
+  isCompleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  question?: boolean | Prisma.Progress$questionArgs<ExtArgs>
 }, ExtArgs["result"]["progress"]>
 
 export type ProgressSelectScalar = {
   progressId?: boolean
   userId?: boolean
-  currentQuestionIdx?: boolean
-  questionIds?: boolean
-  correctCount?: boolean
-  attemptedCount?: boolean
+  currentQuestionId?: boolean
+  correctQuestionIds?: boolean
   lifelines?: boolean
   marks?: boolean
+  isCompleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ProgressOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"progressId" | "userId" | "currentQuestionIdx" | "questionIds" | "correctCount" | "attemptedCount" | "lifelines" | "marks" | "createdAt" | "updatedAt", ExtArgs["result"]["progress"]>
+export type ProgressOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"progressId" | "userId" | "currentQuestionId" | "correctQuestionIds" | "lifelines" | "marks" | "isCompleted" | "createdAt" | "updatedAt", ExtArgs["result"]["progress"]>
 export type ProgressInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  question?: boolean | Prisma.Progress$questionArgs<ExtArgs>
 }
 export type ProgressIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  question?: boolean | Prisma.Progress$questionArgs<ExtArgs>
 }
 export type ProgressIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  question?: boolean | Prisma.Progress$questionArgs<ExtArgs>
 }
 
 export type $ProgressPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Progress"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    question: Prisma.$QuestionPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     progressId: string
     userId: string
-    currentQuestionIdx: number
-    questionIds: string[]
-    correctCount: number
-    attemptedCount: number
+    currentQuestionId: string | null
+    correctQuestionIds: string[]
     lifelines: runtime.JsonValue
     marks: number
+    isCompleted: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["progress"]>
@@ -1064,6 +1183,7 @@ readonly fields: ProgressFieldRefs;
 export interface Prisma__ProgressClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  question<T extends Prisma.Progress$questionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Progress$questionArgs<ExtArgs>>): Prisma.Prisma__QuestionClient<runtime.Types.Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1095,12 +1215,11 @@ export interface Prisma__ProgressClient<T, Null = never, ExtArgs extends runtime
 export interface ProgressFieldRefs {
   readonly progressId: Prisma.FieldRef<"Progress", 'String'>
   readonly userId: Prisma.FieldRef<"Progress", 'String'>
-  readonly currentQuestionIdx: Prisma.FieldRef<"Progress", 'Int'>
-  readonly questionIds: Prisma.FieldRef<"Progress", 'String[]'>
-  readonly correctCount: Prisma.FieldRef<"Progress", 'Int'>
-  readonly attemptedCount: Prisma.FieldRef<"Progress", 'Int'>
+  readonly currentQuestionId: Prisma.FieldRef<"Progress", 'String'>
+  readonly correctQuestionIds: Prisma.FieldRef<"Progress", 'String[]'>
   readonly lifelines: Prisma.FieldRef<"Progress", 'Json'>
   readonly marks: Prisma.FieldRef<"Progress", 'Int'>
+  readonly isCompleted: Prisma.FieldRef<"Progress", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Progress", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Progress", 'DateTime'>
 }
@@ -1496,6 +1615,25 @@ export type ProgressDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Limit how many Progresses to delete.
    */
   limit?: number
+}
+
+/**
+ * Progress.question
+ */
+export type Progress$questionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Question
+   */
+  select?: Prisma.QuestionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Question
+   */
+  omit?: Prisma.QuestionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestionInclude<ExtArgs> | null
+  where?: Prisma.QuestionWhereInput
 }
 
 /**

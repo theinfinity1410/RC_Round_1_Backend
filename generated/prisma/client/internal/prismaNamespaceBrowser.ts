@@ -80,8 +80,8 @@ export const UserScalarFieldEnum = {
   name: 'name',
   isJunior: 'isJunior',
   finalResult: 'finalResult',
-  startTime: 'startTime',
-  endTime: 'endTime'
+  quizStartTime: 'quizStartTime',
+  quizEndTime: 'quizEndTime'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -103,12 +103,11 @@ export type QuestionScalarFieldEnum = (typeof QuestionScalarFieldEnum)[keyof typ
 export const ProgressScalarFieldEnum = {
   progressId: 'progressId',
   userId: 'userId',
-  currentQuestionIdx: 'currentQuestionIdx',
-  questionIds: 'questionIds',
-  correctCount: 'correctCount',
-  attemptedCount: 'attemptedCount',
+  currentQuestionId: 'currentQuestionId',
+  correctQuestionIds: 'correctQuestionIds',
   lifelines: 'lifelines',
   marks: 'marks',
+  isCompleted: 'isCompleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

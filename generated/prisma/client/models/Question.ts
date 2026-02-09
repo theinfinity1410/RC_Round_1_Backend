@@ -232,6 +232,7 @@ export type QuestionWhereInput = {
   hint?: Prisma.StringNullableFilter<"Question"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Question"> | Date | string
+  progresses?: Prisma.ProgressListRelationFilter
 }
 
 export type QuestionOrderByWithRelationInput = {
@@ -242,6 +243,7 @@ export type QuestionOrderByWithRelationInput = {
   hint?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  progresses?: Prisma.ProgressOrderByRelationAggregateInput
 }
 
 export type QuestionWhereUniqueInput = Prisma.AtLeast<{
@@ -255,6 +257,7 @@ export type QuestionWhereUniqueInput = Prisma.AtLeast<{
   hint?: Prisma.StringNullableFilter<"Question"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Question"> | Date | string
+  progresses?: Prisma.ProgressListRelationFilter
 }, "id">
 
 export type QuestionOrderByWithAggregationInput = {
@@ -293,6 +296,7 @@ export type QuestionCreateInput = {
   hint?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  progresses?: Prisma.ProgressCreateNestedManyWithoutQuestionInput
 }
 
 export type QuestionUncheckedCreateInput = {
@@ -303,6 +307,7 @@ export type QuestionUncheckedCreateInput = {
   hint?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  progresses?: Prisma.ProgressUncheckedCreateNestedManyWithoutQuestionInput
 }
 
 export type QuestionUpdateInput = {
@@ -313,6 +318,7 @@ export type QuestionUpdateInput = {
   hint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  progresses?: Prisma.ProgressUpdateManyWithoutQuestionNestedInput
 }
 
 export type QuestionUncheckedUpdateInput = {
@@ -323,6 +329,7 @@ export type QuestionUncheckedUpdateInput = {
   hint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  progresses?: Prisma.ProgressUncheckedUpdateManyWithoutQuestionNestedInput
 }
 
 export type QuestionCreateManyInput = {
@@ -393,6 +400,11 @@ export type QuestionSumOrderByAggregateInput = {
   answer?: Prisma.SortOrder
 }
 
+export type QuestionNullableScalarRelationFilter = {
+  is?: Prisma.QuestionWhereInput | null
+  isNot?: Prisma.QuestionWhereInput | null
+}
+
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
@@ -401,6 +413,107 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type QuestionCreateNestedOneWithoutProgressesInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutProgressesInput, Prisma.QuestionUncheckedCreateWithoutProgressesInput>
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutProgressesInput
+  connect?: Prisma.QuestionWhereUniqueInput
+}
+
+export type QuestionUpdateOneWithoutProgressesNestedInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutProgressesInput, Prisma.QuestionUncheckedCreateWithoutProgressesInput>
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutProgressesInput
+  upsert?: Prisma.QuestionUpsertWithoutProgressesInput
+  disconnect?: Prisma.QuestionWhereInput | boolean
+  delete?: Prisma.QuestionWhereInput | boolean
+  connect?: Prisma.QuestionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.QuestionUpdateToOneWithWhereWithoutProgressesInput, Prisma.QuestionUpdateWithoutProgressesInput>, Prisma.QuestionUncheckedUpdateWithoutProgressesInput>
+}
+
+export type QuestionCreateWithoutProgressesInput = {
+  id?: string
+  category?: boolean
+  questionText: string
+  answer?: number
+  hint?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type QuestionUncheckedCreateWithoutProgressesInput = {
+  id?: string
+  category?: boolean
+  questionText: string
+  answer?: number
+  hint?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type QuestionCreateOrConnectWithoutProgressesInput = {
+  where: Prisma.QuestionWhereUniqueInput
+  create: Prisma.XOR<Prisma.QuestionCreateWithoutProgressesInput, Prisma.QuestionUncheckedCreateWithoutProgressesInput>
+}
+
+export type QuestionUpsertWithoutProgressesInput = {
+  update: Prisma.XOR<Prisma.QuestionUpdateWithoutProgressesInput, Prisma.QuestionUncheckedUpdateWithoutProgressesInput>
+  create: Prisma.XOR<Prisma.QuestionCreateWithoutProgressesInput, Prisma.QuestionUncheckedCreateWithoutProgressesInput>
+  where?: Prisma.QuestionWhereInput
+}
+
+export type QuestionUpdateToOneWithWhereWithoutProgressesInput = {
+  where?: Prisma.QuestionWhereInput
+  data: Prisma.XOR<Prisma.QuestionUpdateWithoutProgressesInput, Prisma.QuestionUncheckedUpdateWithoutProgressesInput>
+}
+
+export type QuestionUpdateWithoutProgressesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  questionText?: Prisma.StringFieldUpdateOperationsInput | string
+  answer?: Prisma.IntFieldUpdateOperationsInput | number
+  hint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type QuestionUncheckedUpdateWithoutProgressesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  questionText?: Prisma.StringFieldUpdateOperationsInput | string
+  answer?: Prisma.IntFieldUpdateOperationsInput | number
+  hint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type QuestionCountOutputType
+ */
+
+export type QuestionCountOutputType = {
+  progresses: number
+}
+
+export type QuestionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  progresses?: boolean | QuestionCountOutputTypeCountProgressesArgs
+}
+
+/**
+ * QuestionCountOutputType without action
+ */
+export type QuestionCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the QuestionCountOutputType
+   */
+  select?: Prisma.QuestionCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * QuestionCountOutputType without action
+ */
+export type QuestionCountOutputTypeCountProgressesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProgressWhereInput
+}
 
 
 export type QuestionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -411,6 +524,8 @@ export type QuestionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   hint?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  progresses?: boolean | Prisma.Question$progressesArgs<ExtArgs>
+  _count?: boolean | Prisma.QuestionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["question"]>
 
 export type QuestionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -444,10 +559,18 @@ export type QuestionSelectScalar = {
 }
 
 export type QuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "category" | "questionText" | "answer" | "hint" | "createdAt" | "updatedAt", ExtArgs["result"]["question"]>
+export type QuestionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  progresses?: boolean | Prisma.Question$progressesArgs<ExtArgs>
+  _count?: boolean | Prisma.QuestionCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type QuestionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type QuestionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $QuestionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Question"
-  objects: {}
+  objects: {
+    progresses: Prisma.$ProgressPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     category: boolean
@@ -850,6 +973,7 @@ readonly fields: QuestionFieldRefs;
  */
 export interface Prisma__QuestionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  progresses<T extends Prisma.Question$progressesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Question$progressesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -903,6 +1027,10 @@ export type QuestionFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inte
    */
   omit?: Prisma.QuestionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestionInclude<ExtArgs> | null
+  /**
    * Filter, which Question to fetch.
    */
   where: Prisma.QuestionWhereUniqueInput
@@ -921,6 +1049,10 @@ export type QuestionFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensio
    */
   omit?: Prisma.QuestionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestionInclude<ExtArgs> | null
+  /**
    * Filter, which Question to fetch.
    */
   where: Prisma.QuestionWhereUniqueInput
@@ -938,6 +1070,10 @@ export type QuestionFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the Question
    */
   omit?: Prisma.QuestionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestionInclude<ExtArgs> | null
   /**
    * Filter, which Question to fetch.
    */
@@ -987,6 +1123,10 @@ export type QuestionFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.QuestionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestionInclude<ExtArgs> | null
+  /**
    * Filter, which Question to fetch.
    */
   where?: Prisma.QuestionWhereInput
@@ -1035,6 +1175,10 @@ export type QuestionFindManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   omit?: Prisma.QuestionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestionInclude<ExtArgs> | null
+  /**
    * Filter, which Questions to fetch.
    */
   where?: Prisma.QuestionWhereInput
@@ -1077,6 +1221,10 @@ export type QuestionCreateArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Question
    */
   omit?: Prisma.QuestionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestionInclude<ExtArgs> | null
   /**
    * The data needed to create a Question.
    */
@@ -1125,6 +1273,10 @@ export type QuestionUpdateArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Question
    */
   omit?: Prisma.QuestionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestionInclude<ExtArgs> | null
   /**
    * The data needed to update a Question.
    */
@@ -1192,6 +1344,10 @@ export type QuestionUpsertArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.QuestionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestionInclude<ExtArgs> | null
+  /**
    * The filter to search for the Question to update in case it exists.
    */
   where: Prisma.QuestionWhereUniqueInput
@@ -1218,6 +1374,10 @@ export type QuestionDeleteArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.QuestionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestionInclude<ExtArgs> | null
+  /**
    * Filter which Question to delete.
    */
   where: Prisma.QuestionWhereUniqueInput
@@ -1238,6 +1398,30 @@ export type QuestionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
+ * Question.progresses
+ */
+export type Question$progressesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Progress
+   */
+  select?: Prisma.ProgressSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Progress
+   */
+  omit?: Prisma.ProgressOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProgressInclude<ExtArgs> | null
+  where?: Prisma.ProgressWhereInput
+  orderBy?: Prisma.ProgressOrderByWithRelationInput | Prisma.ProgressOrderByWithRelationInput[]
+  cursor?: Prisma.ProgressWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProgressScalarFieldEnum | Prisma.ProgressScalarFieldEnum[]
+}
+
+/**
  * Question without action
  */
 export type QuestionDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1249,4 +1433,8 @@ export type QuestionDefaultArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Question
    */
   omit?: Prisma.QuestionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestionInclude<ExtArgs> | null
 }
