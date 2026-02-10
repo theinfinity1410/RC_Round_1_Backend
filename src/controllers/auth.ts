@@ -37,7 +37,7 @@ const login = async (req: Request, res: Response) => {
 
     const token = jwt.sign(
       {
-        userId: user.userId,  // ✅ correct field
+        userId: user.userId, 
         email: user.email,
         username:user.username,
         isJunior :user.isJunior,

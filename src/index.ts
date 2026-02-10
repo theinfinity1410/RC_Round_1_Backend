@@ -9,10 +9,9 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-
-app.use('/quiz', quizRouter);
 app.use('/auth', authRouter);
 app.use("/",authMiddleware)
+app.use('/quiz', quizRouter);
 app.use('/lifelines', lifelinesRouter);
 
 
