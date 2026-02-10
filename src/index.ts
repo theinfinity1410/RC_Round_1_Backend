@@ -9,13 +9,31 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
+app.get('/', (req,res) =>{
+    res.send("backend is running");
+});
 
-app.use('/quiz', quizRouter);
 app.use('/auth', authRouter);
 app.use("/",authMiddleware)
-app.use('/lifelines', lifelinesRouter);
-
+app.use('/quiz', quizRouter);
+// app.use('/lifelines', lifelinesRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
