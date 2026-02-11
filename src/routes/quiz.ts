@@ -6,10 +6,10 @@ import { getLeaderboard, getUserRank } from '../controllers/leaderboard.js';
 
 const quizRouter = express.Router();
 
-// quizRouter.post('/start', start);
-// quizRouter.post('/next', next);
+quizRouter.post('/start', start);
+ quizRouter.post('/next', next);
 quizRouter.post('/leaderboard', getLeaderboard);
 quizRouter.get('/leaderboard/rank', getUserRank);
-// quizRouter.post('/submit', submit);
+quizRouter.post('/submit', submit);
 
 export default quizRouter;

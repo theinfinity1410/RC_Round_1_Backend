@@ -19,7 +19,7 @@ export const getLeaderboard = async (req: Request, res: Response) => {
     });
 
     if (!user) {
-      return res.status(404).json({
+      return res.status(400).json({
         message: 'User not found',
       });
     }
@@ -71,7 +71,7 @@ export const getLeaderboard = async (req: Request, res: Response) => {
 
 export const getUserRank = async (req: Request, res: Response) => {
   try {
-    const username = req.query.username as string;
+    const username = req.user.username as string;
 
     if (!username) {
       return res.status(400).json({
@@ -79,7 +79,7 @@ export const getUserRank = async (req: Request, res: Response) => {
       });
     }
 
-    //  Get user progress
+    // Get user progress
     const user = await prisma.user.findUnique({
       where: { username },
       select: {
@@ -94,7 +94,7 @@ export const getUserRank = async (req: Request, res: Response) => {
     });
 
     if (!user || !user.progress) {
-      return res.status(404).json({
+      return res.status(400).json({
         message: 'User progress not found',
       });
     }

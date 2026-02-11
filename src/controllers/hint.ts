@@ -1,71 +1,69 @@
-/* 
-    Hint Question Controller
-    User will hit this route and we have to send hint for current question.
-*/
-
 import { Request, Response } from "express";
 import { prisma } from "../config/db";
 
 export const hint = async (req: Request, res: Response) => {
   try {
-    const userId = (req as any).user.userId;
+    const userId = req.user?.userId;
 
-    // 📦 Get Progress
+    if (!userId) {
+      return res.status(400).json({
+        success: false,
+        message: "userId is required"
+      });
+    }
+
+    // Get progress
     const progress = await prisma.progress.findUnique({
       where: { userId }
     });
 
     if (!progress) {
-      return res.status(404).json({
+      return res.status(400).json({
         success: false,
-        message: "Progress not found"
+        message: "Quiz not started"
       });
     }
 
-    // 🧠 Lifelines JSON
     const lifelines = progress.lifelines as {
       hint: boolean;
       freeze: boolean;
       flip: boolean;
     };
 
-    // ❌ Already used
-    if (lifelines.hint) {
-      return res.status(400).json({
+    //Check if hint already used
+    if (lifelines.hint === true) {
+      //200 -> 400 
+      return res.status(200).json({
         success: false,
         message: "Hint already used"
       });
     }
 
-    // ❌ No active question
-    if (!progress.currentQuestionId) {
+    const questionIds: string[] = progress.questionIds || [];
+    const currentIdx = progress.currentQuestionIdx;
+
+    if (currentIdx >= questionIds.length) {
       return res.status(400).json({
         success: false,
-        message: "No active question"
+        message: "No current question available"
       });
     }
 
-    // 📍 Get Question
+    const currentQuestionId = questionIds[currentIdx] as string;
+
     const question = await prisma.question.findUnique({
-      where: { id: progress.currentQuestionId }
+      where: { id: currentQuestionId }
     });
 
     if (!question) {
-      return res.status(404).json({
+      //400 -> 404
+      return res.status(400).json({
         success: false,
         message: "Question not found"
       });
     }
 
-    // ❌ No hint available
-    if (!question.hint) {
-      return res.status(400).json({
-        success: false,
-        message: "No hint available for this question"
-      });
-    }
-
-    // ✏️ Update Lifeline
+    // Update lifelines only
     const updatedLifelines = {
       ...lifelines,
       hint: true
@@ -78,15 +76,16 @@ export const hint = async (req: Request, res: Response) => {
       }
     });
 
-    // ✅ Return Hint
     return res.status(200).json({
       success: true,
-      hint: question.hint
+      data: {
+        hint: question.hint || "No hint available for this question",
+        lifelines: updatedLifelines
+      }
     });
 
   } catch (error) {
-    console.error("Hint Error:", error);
-
+    console.error("Hint Controller Error:", error);
     return res.status(500).json({
       success: false,
       message: "Internal Server Error"
