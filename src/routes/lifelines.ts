@@ -6,9 +6,9 @@ import authMiddleware from "../middlewares/auth.js";
 
 const lifelinesRouter = express.Router();
 
-lifelinesRouter.post("/flip", authMiddleware, flip);
+lifelinesRouter.post("/flip", flip);
 // lifelinesRouter.post('/freeze', freeze);
-lifelinesRouter.post("/hint", authMiddleware, hint);
+lifelinesRouter.post("/hint", hint);
 
 
 export default lifelinesRouter;
