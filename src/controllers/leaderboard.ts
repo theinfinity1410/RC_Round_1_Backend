@@ -129,6 +129,7 @@ export const getUserRank = async (req: Request, res: Response) => {
 
     return res.status(200).json({
       username,
+      isJunior:user.isJunior,
       rank,
       correctAnswers: user.progress.correctCount,
     });
