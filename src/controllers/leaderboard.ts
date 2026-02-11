@@ -33,6 +33,7 @@ export const getLeaderboard = async (req: Request, res: Response) => {
       },
       select: {
         correctCount: true,
+        attemptedCount : true,
         updatedAt: true,
         user: {
           select: {
@@ -54,6 +55,7 @@ export const getLeaderboard = async (req: Request, res: Response) => {
         rank: index + 1,
         username: item.user.username,
         correctAnswers: item.correctCount,
+        totalQuestionsAttempted : item.attemptedCount ,
         lastUpdatedAt: item.updatedAt,
       }));
 
@@ -87,6 +89,7 @@ export const getUserRank = async (req: Request, res: Response) => {
         progress: {
           select: {
             correctCount: true,
+            attemptedCount : true,
             updatedAt: true,
           },
         },
@@ -132,6 +135,7 @@ export const getUserRank = async (req: Request, res: Response) => {
       isJunior:user.isJunior,
       rank,
       correctAnswers: user.progress.correctCount,
+      totalQuestionsAttempted : user.progress.attemptedCount ,
     });
   } catch (error) {
     console.error('User rank error:', error);

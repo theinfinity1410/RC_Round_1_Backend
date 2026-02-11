@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { prisma } from "../config/db";
 
+const TIME_LIMIT_MS = 60 * 60 * 1000;
+
 export const start = async (req: Request, res: Response) => {
     try {
         // const { userId } = req.body;
@@ -28,6 +30,21 @@ export const start = async (req: Request, res: Response) => {
         });
 
         if (existingProgress) {
+            const startTimeMs = new Date(user.startTime!).getTime();
+            const elapsed = Date.now() - startTimeMs;
+            const remainingTimeMs = startTimeMs + TIME_LIMIT_MS - Date.now();
+
+            if (elapsed > TIME_LIMIT_MS) {
+                return res.status(205).json({
+                    success: true,
+                    message: "Time over.Quiz auto-submitted.",
+                    score: existingProgress.marks,
+                    correctAnswers: existingProgress.correctCount,
+                    attempted: existingProgress.attemptedCount,
+                    lifelinesUsed: existingProgress.lifelines,
+                    remainingTimeMs: Math.max(0, remainingTimeMs)
+                });
+            }
 
             const currentQuestionIdx = existingProgress.currentQuestionIdx;
             const questionIds = existingProgress.questionIds;
@@ -56,7 +73,7 @@ export const start = async (req: Request, res: Response) => {
                 return res.status(400).json({
                     success: false,
                     message: "Question not found!",
-                    
+
                 });
             }
         }

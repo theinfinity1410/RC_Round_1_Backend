@@ -177,8 +177,8 @@ const autoSubmit = async (userId: string, res: Response) => {
             finalResult: progress.marks
         }
     });
-
-    return res.status(200).json({
+   // 200 -> 205
+    return res.status(205).json({
         success: true,
         message: "Time over.Quiz auto-submitted.",
         score: progress.marks,
