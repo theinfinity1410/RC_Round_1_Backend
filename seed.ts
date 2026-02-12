@@ -16,7 +16,7 @@ const seedUser = async () => {
       }
     });
 
-    console.log('✅ User created successfully:', user);
+    console.log(' User created successfully:', user);
 
     // Create progress record
     const progress = await prisma.progress.create({
@@ -25,10 +25,10 @@ const seedUser = async () => {
       }
     });
 
-    console.log('✅ Progress record created:', progress);
+    console.log(' Progress record created:', progress);
 
   } catch (err) {
-    console.error('❌ Error:', err instanceof Error ? err.message : err);
+    console.error(' Error:', err instanceof Error ? err.message : err);
   } finally {
     await prisma.$disconnect();
   }
