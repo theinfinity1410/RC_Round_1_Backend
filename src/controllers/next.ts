@@ -100,7 +100,8 @@ export const next = async (req: Request, res: Response) => {
         });
 
         if (nextIdx >= questionIds.length) {
-            return res.status(200).json({
+           // 200 -> 204
+            return res.status(204).json({
                 success: true,
                 message: "Last question reached. Please submit.",
                 remainingTimeMs,
