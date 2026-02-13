@@ -29,10 +29,10 @@ export const start = async (req: Request, res: Response) => {
             where: { userId }
         });
 
+        const startTimeMs = new Date(user.startTime!).getTime();
+        const elapsed = Date.now() - startTimeMs;
+        const remainingTimeMs = startTimeMs + TIME_LIMIT_MS - Date.now();
         if (existingProgress) {
-            const startTimeMs = new Date(user.startTime!).getTime();
-            const elapsed = Date.now() - startTimeMs;
-            const remainingTimeMs = startTimeMs + TIME_LIMIT_MS - Date.now();
 
             if (elapsed > TIME_LIMIT_MS) {
                 return res.status(205).json({
@@ -120,6 +120,7 @@ export const start = async (req: Request, res: Response) => {
 
         return res.status(200).json({
             success: true,
+            remainingTimeMs:remainingTimeMs,
             data: {
                 id: firstQuestion.id,
                 questionText: firstQuestion.questionText
