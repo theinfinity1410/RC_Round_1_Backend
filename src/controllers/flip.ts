@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { prisma } from "../config/db";
-
+import { autoSubmit } from "./next";
+const TIME_LIMIT_MS = 60 * 60 * 1000;
 export const flip = async (req: Request, res: Response) => {
   try {
     const userId = req.user?.userId;
@@ -23,6 +24,25 @@ export const flip = async (req: Request, res: Response) => {
       });
     }
 
+    const user = await prisma.user.findUnique({
+      where: { userId }
+    });
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "User not found"
+      });
+    }
+
+    // end time = createdAt + TIME_LIMIT_MS - elapsed
+    const startTimeMs = new Date(user.startTime!).getTime();
+    const elapsed = Date.now() - startTimeMs;
+    const remainingTimeMs = startTimeMs + TIME_LIMIT_MS - Date.now();
+
+    if (elapsed > TIME_LIMIT_MS) {
+      return await autoSubmit(userId, res);
+    }
+
     const lifelines: any = progress.lifelines;
 
     if (lifelines.flip === true) {
@@ -36,7 +56,7 @@ export const flip = async (req: Request, res: Response) => {
     const questionIds = [...progress.questionIds];
     const currentIdx = progress.currentQuestionIdx;
 
- 
+
     if (currentIdx + 1 >= questionIds.length) {
       return res.status(400).json({
         success: false,
@@ -50,7 +70,8 @@ export const flip = async (req: Request, res: Response) => {
     const question = await prisma.question.findUnique({
       where: { id: nextQuestionId }, select: {
         id: true,
-        questionText: true}
+        questionText: true
+      }
     });
 
     if (!question) {
@@ -69,14 +90,14 @@ export const flip = async (req: Request, res: Response) => {
       where: { userId },
       data: {
         questionIds,
+        currentQuestionIdx: nextQuestionIdx,
         lifelines: updatedLifelines
       }
     });
-
-
     
     return res.status(200).json({
       success: true,
+      remainingTimeMs:remainingTimeMs,
       data: {
         question,
         nextQuestionId,

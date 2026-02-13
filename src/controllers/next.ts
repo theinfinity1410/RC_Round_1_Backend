@@ -149,7 +149,7 @@ export const next = async (req: Request, res: Response) => {
     }
 };
 
-const autoSubmit = async (userId: string, res: Response) => {
+export const autoSubmit = async (userId: string, res: Response) => {
     const progress = await prisma.progress.findUnique({
         where: { userId }
     });

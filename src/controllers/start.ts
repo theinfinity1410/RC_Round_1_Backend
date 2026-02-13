@@ -63,6 +63,7 @@ export const start = async (req: Request, res: Response) => {
                 return res.status(200).json({
                     success: false,
                     message: "Quiz already started",
+                    remainingTimeMs:remainingTimeMs,
                     data: {
                         id: currentQuestion.id,
                         questionText: currentQuestion.questionText
@@ -73,7 +74,6 @@ export const start = async (req: Request, res: Response) => {
                 return res.status(400).json({
                     success: false,
                     message: "Question not found!",
-
                 });
             }
         }
