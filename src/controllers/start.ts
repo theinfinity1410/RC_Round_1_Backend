@@ -64,6 +64,7 @@ export const start = async (req: Request, res: Response) => {
                     success: false,
                     message: "Quiz already started",
                     remainingTimeMs:remainingTimeMs,
+                    correctCount:existingProgress.correctCount,
                     data: {
                         id: currentQuestion.id,
                         questionText: currentQuestion.questionText,
@@ -122,6 +123,7 @@ export const start = async (req: Request, res: Response) => {
         return res.status(200).json({
             success: true,
             remainingTimeMs:remainingTimeMs,
+            correctCount:0,
             data: {
                 id: firstQuestion.id,
                 questionText: firstQuestion.questionText

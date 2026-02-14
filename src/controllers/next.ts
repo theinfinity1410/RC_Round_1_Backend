@@ -131,6 +131,7 @@ export const next = async (req: Request, res: Response) => {
 
         return res.status(200).json({
             success: true,
+            correctCount:progress.correctCount,
             data: {
                 id: nextQuestion.id,
                 questionText: nextQuestion.questionText

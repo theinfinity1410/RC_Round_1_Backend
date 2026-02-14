@@ -94,8 +94,9 @@ export const flip = async (req: Request, res: Response) => {
         lifelines: updatedLifelines
       }
     });
-    
+      
     return res.status(200).json({
+      correctCount:progress.correctCount,
       success: true,
       remainingTimeMs:remainingTimeMs,
       data: {
