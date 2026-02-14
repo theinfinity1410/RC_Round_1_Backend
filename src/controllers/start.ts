@@ -66,7 +66,8 @@ export const start = async (req: Request, res: Response) => {
                     remainingTimeMs:remainingTimeMs,
                     data: {
                         id: currentQuestion.id,
-                        questionText: currentQuestion.questionText
+                        questionText: currentQuestion.questionText,
+                        lifelinesUsed: existingProgress.lifelines,
                     }
                 });
             }
