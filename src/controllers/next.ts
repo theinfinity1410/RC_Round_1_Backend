@@ -81,7 +81,7 @@ export const next = async (req: Request, res: Response) => {
         let marks = progress.marks;
         let correctCount = progress.correctCount;
 
-        if (answer === question.answer) {
+        if (answer?.trim()===question.answer?.trim()){
             marks += 1;
             correctCount += 1;
         }
