@@ -1,0 +1,11 @@
+services:
+  backend:
+    build: .
+    image: maitreya16/rc1-backend:latest
+    ports:
+      - "3000:3000"
+
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}

@@ -1,17 +1,11 @@
-/*
-    Submit Quiz controller
-    Should be hit automatcially when quiz ends or user hits submit quiz button.
-    We have to calculate the score of the user here and update the user quiz status to completed.
-*/
 
-// export const submit = {};
 
 import { Request, Response } from "express";
 import { prisma } from "../config/db";
 
 export const submit = async (req: Request, res: Response) => {
   try {
-    const { userId } = req.user?.userId;
+    const  userId  = req.user.userId;
 
     if (!userId) {
       return res.status(400).json({
@@ -67,4 +61,3 @@ export const submit = async (req: Request, res: Response) => {
     });
   }
 };
-
