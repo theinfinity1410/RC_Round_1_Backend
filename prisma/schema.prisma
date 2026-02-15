@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
@@ -14,15 +8,15 @@ datasource db {
 }
 
 model User {
-  userId      String    @id @default(uuid())
+    userId      String    @id @default(uuid())
   username    String    @unique @db.VarChar(100)
   email       String    @unique
   password    String    @db.VarChar(255)
   name        String    @db.VarChar(150)
   isJunior    Boolean   @default(false)
   finalResult Int       @default(0)
-  startTime    DateTime?
   endTime     DateTime?
+  startTime   DateTime?
   progress    Progress?
 
   @@map("Users")
@@ -31,8 +25,8 @@ model User {
 model Question {
   id           String   @id @default(uuid())
   category     Boolean  @default(false)
-  questionText String   @db.Text
-  answer       Int      @default(0)
+  questionText String
+  answer       String   @default("")
   hint         String?  @db.VarChar(255)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -43,14 +37,14 @@ model Question {
 model Progress {
   progressId         String   @id @default(uuid())
   userId             String   @unique
-  currentQuestionIdx Int      @default(0)
-  questionIds        String[] @default([])
-  correctCount       Int      @default(0)
-  attemptedCount     Int      @default(0)
-  lifelines          Json     @default(dbgenerated("'{\"hint\":false,\"freeze\":false,\"flip\":false}'::json"))
+  lifelines          Json     @default("{\"hint\":false,\"freeze\":false,\"flip\":false}")
   marks              Int      @default(0)
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
+  attemptedCount     Int      @default(0)
+  correctCount       Int      @default(0)
+  currentQuestionIdx Int      @default(0)
+  questionIds        String[] @default([])
   user               User     @relation(fields: [userId], references: [userId], onDelete: Cascade)
 
   @@map("Progress")

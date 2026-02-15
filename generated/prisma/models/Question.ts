@@ -20,25 +20,15 @@ export type QuestionModel = runtime.Types.Result.DefaultSelection<Prisma.$Questi
 
 export type AggregateQuestion = {
   _count: QuestionCountAggregateOutputType | null
-  _avg: QuestionAvgAggregateOutputType | null
-  _sum: QuestionSumAggregateOutputType | null
   _min: QuestionMinAggregateOutputType | null
   _max: QuestionMaxAggregateOutputType | null
-}
-
-export type QuestionAvgAggregateOutputType = {
-  answer: number | null
-}
-
-export type QuestionSumAggregateOutputType = {
-  answer: number | null
 }
 
 export type QuestionMinAggregateOutputType = {
   id: string | null
   category: boolean | null
   questionText: string | null
-  answer: number | null
+  answer: string | null
   hint: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -48,7 +38,7 @@ export type QuestionMaxAggregateOutputType = {
   id: string | null
   category: boolean | null
   questionText: string | null
-  answer: number | null
+  answer: string | null
   hint: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -65,14 +55,6 @@ export type QuestionCountAggregateOutputType = {
   _all: number
 }
 
-
-export type QuestionAvgAggregateInputType = {
-  answer?: true
-}
-
-export type QuestionSumAggregateInputType = {
-  answer?: true
-}
 
 export type QuestionMinAggregateInputType = {
   id?: true
@@ -143,18 +125,6 @@ export type QuestionAggregateArgs<ExtArgs extends runtime.Types.Extensions.Inter
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: QuestionAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: QuestionSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: QuestionMinAggregateInputType
@@ -185,8 +155,6 @@ export type QuestionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   _count?: QuestionCountAggregateInputType | true
-  _avg?: QuestionAvgAggregateInputType
-  _sum?: QuestionSumAggregateInputType
   _min?: QuestionMinAggregateInputType
   _max?: QuestionMaxAggregateInputType
 }
@@ -195,13 +163,11 @@ export type QuestionGroupByOutputType = {
   id: string
   category: boolean
   questionText: string
-  answer: number
+  answer: string
   hint: string | null
   createdAt: Date
   updatedAt: Date
   _count: QuestionCountAggregateOutputType | null
-  _avg: QuestionAvgAggregateOutputType | null
-  _sum: QuestionSumAggregateOutputType | null
   _min: QuestionMinAggregateOutputType | null
   _max: QuestionMaxAggregateOutputType | null
 }
@@ -228,7 +194,7 @@ export type QuestionWhereInput = {
   id?: Prisma.StringFilter<"Question"> | string
   category?: Prisma.BoolFilter<"Question"> | boolean
   questionText?: Prisma.StringFilter<"Question"> | string
-  answer?: Prisma.IntFilter<"Question"> | number
+  answer?: Prisma.StringFilter<"Question"> | string
   hint?: Prisma.StringNullableFilter<"Question"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Question"> | Date | string
@@ -251,7 +217,7 @@ export type QuestionWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.QuestionWhereInput | Prisma.QuestionWhereInput[]
   category?: Prisma.BoolFilter<"Question"> | boolean
   questionText?: Prisma.StringFilter<"Question"> | string
-  answer?: Prisma.IntFilter<"Question"> | number
+  answer?: Prisma.StringFilter<"Question"> | string
   hint?: Prisma.StringNullableFilter<"Question"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Question"> | Date | string
@@ -266,10 +232,8 @@ export type QuestionOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.QuestionCountOrderByAggregateInput
-  _avg?: Prisma.QuestionAvgOrderByAggregateInput
   _max?: Prisma.QuestionMaxOrderByAggregateInput
   _min?: Prisma.QuestionMinOrderByAggregateInput
-  _sum?: Prisma.QuestionSumOrderByAggregateInput
 }
 
 export type QuestionScalarWhereWithAggregatesInput = {
@@ -279,7 +243,7 @@ export type QuestionScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Question"> | string
   category?: Prisma.BoolWithAggregatesFilter<"Question"> | boolean
   questionText?: Prisma.StringWithAggregatesFilter<"Question"> | string
-  answer?: Prisma.IntWithAggregatesFilter<"Question"> | number
+  answer?: Prisma.StringWithAggregatesFilter<"Question"> | string
   hint?: Prisma.StringNullableWithAggregatesFilter<"Question"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Question"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Question"> | Date | string
@@ -289,7 +253,7 @@ export type QuestionCreateInput = {
   id?: string
   category?: boolean
   questionText: string
-  answer?: number
+  answer?: string
   hint?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -299,7 +263,7 @@ export type QuestionUncheckedCreateInput = {
   id?: string
   category?: boolean
   questionText: string
-  answer?: number
+  answer?: string
   hint?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -309,7 +273,7 @@ export type QuestionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.BoolFieldUpdateOperationsInput | boolean
   questionText?: Prisma.StringFieldUpdateOperationsInput | string
-  answer?: Prisma.IntFieldUpdateOperationsInput | number
+  answer?: Prisma.StringFieldUpdateOperationsInput | string
   hint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -319,7 +283,7 @@ export type QuestionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.BoolFieldUpdateOperationsInput | boolean
   questionText?: Prisma.StringFieldUpdateOperationsInput | string
-  answer?: Prisma.IntFieldUpdateOperationsInput | number
+  answer?: Prisma.StringFieldUpdateOperationsInput | string
   hint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -329,7 +293,7 @@ export type QuestionCreateManyInput = {
   id?: string
   category?: boolean
   questionText: string
-  answer?: number
+  answer?: string
   hint?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -339,7 +303,7 @@ export type QuestionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.BoolFieldUpdateOperationsInput | boolean
   questionText?: Prisma.StringFieldUpdateOperationsInput | string
-  answer?: Prisma.IntFieldUpdateOperationsInput | number
+  answer?: Prisma.StringFieldUpdateOperationsInput | string
   hint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -349,7 +313,7 @@ export type QuestionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.BoolFieldUpdateOperationsInput | boolean
   questionText?: Prisma.StringFieldUpdateOperationsInput | string
-  answer?: Prisma.IntFieldUpdateOperationsInput | number
+  answer?: Prisma.StringFieldUpdateOperationsInput | string
   hint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -363,10 +327,6 @@ export type QuestionCountOrderByAggregateInput = {
   hint?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type QuestionAvgOrderByAggregateInput = {
-  answer?: Prisma.SortOrder
 }
 
 export type QuestionMaxOrderByAggregateInput = {
@@ -387,10 +347,6 @@ export type QuestionMinOrderByAggregateInput = {
   hint?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type QuestionSumOrderByAggregateInput = {
-  answer?: Prisma.SortOrder
 }
 
 export type NullableStringFieldUpdateOperationsInput = {
@@ -452,7 +408,7 @@ export type $QuestionPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     id: string
     category: boolean
     questionText: string
-    answer: number
+    answer: string
     hint: string | null
     createdAt: Date
     updatedAt: Date
@@ -882,7 +838,7 @@ export interface QuestionFieldRefs {
   readonly id: Prisma.FieldRef<"Question", 'String'>
   readonly category: Prisma.FieldRef<"Question", 'Boolean'>
   readonly questionText: Prisma.FieldRef<"Question", 'String'>
-  readonly answer: Prisma.FieldRef<"Question", 'Int'>
+  readonly answer: Prisma.FieldRef<"Question", 'String'>
   readonly hint: Prisma.FieldRef<"Question", 'String'>
   readonly createdAt: Prisma.FieldRef<"Question", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Question", 'DateTime'>
