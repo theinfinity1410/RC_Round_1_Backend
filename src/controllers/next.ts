@@ -99,15 +99,18 @@ export const next = async (req: Request, res: Response) => {
             }
         });
 
-        if (nextIdx >= questionIds.length) {
+        let isLastQuestion = false
+        if (nextIdx == questionIds.length-1) {
            // 200 -> 204
-            return res.status(204).json({
-                success: true,
-                message: "Last question reached. Please submit.",
-                remainingTimeMs,
-                lifelinesUsed: progress.lifelines,
-                isLastQuestion: true
-            });
+            // return res.status(204).json({
+            //     success: true,
+            //     message: "Last question reached. Please submit.",
+            //     remainingTimeMs,
+            //     lifelinesUsed: progress.lifelines,
+            //     isLastQuestion: true
+            // });
+            isLastQuestion=true
+
         }
 
         const nextQuestionId = questionIds[nextIdx];
@@ -131,14 +134,14 @@ export const next = async (req: Request, res: Response) => {
 
         return res.status(200).json({
             success: true,
-            correctCount:progress.correctCount,
+            correctCount:correctCount,//correctcount
             data: {
                 id: nextQuestion.id,
                 questionText: nextQuestion.questionText
             },
             remainingTimeMs,
             lifelinesUsed: progress.lifelines,
-            isLastQuestion: false
+            isLastQuestion: isLastQuestion
         });
 
     } catch (error) {
